@@ -1,17 +1,26 @@
-import { auth } from "@/auth"
-import { redirect } from 'next/navigation'
+import { AppSidebar } from "@/components/app-sidebar"
+import { SiteHeader } from "@/components/site-header"
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar"
 
 
-export default async function DashboardPage() {
-  const session = await auth()
-  if (!session) {
-    redirect("/login")
-  }
-
+export default function Page() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>This is the dashboard page.</p>
-    </div>
-  );
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--header-height": "calc(var(--spacing) * 12)",
+        } as React.CSSProperties
+      }
+    >
+      <AppSidebar variant="inset" />
+      <SidebarInset>
+        <SiteHeader />
+
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }
