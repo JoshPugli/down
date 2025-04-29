@@ -1,10 +1,11 @@
-import Link from 'next/link'
+import { auth } from "@/auth"
+import { redirect } from 'next/navigation'
 
-export default function Home() {
-  return (
-    <main>
-      <h1>Hello World</h1>
-      <Link href="/users">Users</Link>
-    </main>
-  );
+export default async function Home() {
+  const session = await auth()
+  if (!session) {
+    redirect("/login")
+  } else {
+    redirect("/dashboard")
+  }
 }
