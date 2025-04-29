@@ -1,8 +1,11 @@
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { IconMail } from "@tabler/icons-react";
 
 export function SiteHeader() {
+  // get current page for server side component
+
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
@@ -23,8 +26,16 @@ export function SiteHeader() {
               GitHub
             </a>
           </Button> */}
+          <Button
+            size="icon"
+            className="size-8 group-data-[collapsible=icon]:opacity-0"
+            variant="outline"
+          >
+            <IconMail />
+            <span className="sr-only">Inbox</span>
+          </Button>
         </div>
       </div>
     </header>
-  )
+  );
 }

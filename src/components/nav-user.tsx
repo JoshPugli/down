@@ -3,8 +3,8 @@
 import {
   IconDotsVertical,
   IconLogout,
-  IconNotification,
-  IconUserCircle
+  IconSettings,
+  IconUserPlus
 } from "@tabler/icons-react"
 import { signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
@@ -143,13 +143,13 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => router.push('/account')}>
-                <IconUserCircle className="mr-2 h-4 w-4" />
-                Account
+                <IconSettings className="mr-2 h-4 w-4" />
+                Settings
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push('/notifications')}>
-                <IconNotification className="mr-2 h-4 w-4" />
-                Notifications
-              </DropdownMenuItem>
+              {/* <DropdownMenuItem onClick={() => router.push('/notifications')}>
+                <IconUserPlus className="mr-2 h-4 w-4" />
+                Invite Members  
+              </DropdownMenuItem> */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
