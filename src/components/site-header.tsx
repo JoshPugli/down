@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { IconMail } from "@tabler/icons-react";
 
 export function SiteHeader() {
   // get current page for server side component
@@ -26,14 +24,6 @@ export function SiteHeader() {
               GitHub
             </a>
           </Button> */}
-          <Button
-            size="icon"
-            className="size-8 group-data-[collapsible=icon]:opacity-0"
-            variant="outline"
-          >
-            <IconMail />
-            <span className="sr-only">Inbox</span>
-          </Button>
         </div>
       </div>
     </header>

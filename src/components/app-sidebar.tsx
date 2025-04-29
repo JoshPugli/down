@@ -4,16 +4,20 @@ import {
   IconCamera,
   IconCommand,
   IconCalendar,
-  IconDashboard,
   IconFileAi,
   IconFileDescription,
-  IconUsers
+  IconUsers,
+  IconUserPlus  ,
+  IconMail,
+  IconSettings,
+  IconConfetti
 } from "@tabler/icons-react"
 import * as React from "react"
 
 import { GroupSwitcher } from "@/components/group-switcher"
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
+import { NavSecondary } from "@/components/nav-secondary"
 import {
   Sidebar,
   SidebarContent,
@@ -38,9 +42,9 @@ const data = {
   ],
   navMain: [
     {
-      title: "Events",
+      title: "Hangouts",
       url: "#",
-      icon: IconDashboard,
+      icon: IconConfetti,
     },
 
     {
@@ -48,11 +52,31 @@ const data = {
       url: "#",
       icon: IconCalendar,
     },
+    
+  ],
+  navSecondary: [
     {
-      title: "Group",
+      title: "Settings",
+      url: "#",
+      icon: IconSettings,
+    },
+    {
+      title: "Inbox",
+      url: "#",
+      icon: IconMail,
+    },
+  ],
+  navGroup: [
+    {
+      title: "Members",
       url: "#",
       icon: IconUsers,
     },
+    {
+      title: "Invite members",
+      url: "#",
+      icon: IconUserPlus,
+    }
   ],
   navClouds: [
     {
@@ -112,7 +136,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <GroupSwitcher teams={data.groups} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={data.navMain}/>
+        <NavMain items={data.navGroup} label="Group" />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
