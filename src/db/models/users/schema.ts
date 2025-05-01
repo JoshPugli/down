@@ -1,50 +1,43 @@
 /*
 Got scaffold from https://authjs.dev/getting-started/adapters/drizzle
 */
-import {
-    boolean,
-    integer,
-    pgSchema,
-    primaryKey,
-    text,
-    timestamp
-} from "drizzle-orm/pg-core";
-import { drizzle } from "drizzle-orm/postgres-js";
-import type { AdapterAccountType } from "next-auth/adapters";
-import postgres from "postgres";
-import {uuidPrimaryKey} from "../common/columns";
+import { boolean, integer, pgSchema, primaryKey, text, timestamp } from 'drizzle-orm/pg-core';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import type { AdapterAccountType } from 'next-auth/adapters';
+import postgres from 'postgres';
+import { uuidPrimaryKey } from '../common/columns';
 
 // const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle";
 const pool = postgres(process.env.DATABASE_URL as string, { max: 1 });
 
-const schema = pgSchema("users");
+const schema = pgSchema('users');
 
 export const db = drizzle(pool);
 
-export const users = schema.table("user", {
+export const users = schema.table('user', {
   id: uuidPrimaryKey(),
-  name: text("name"),
-  email: text("email").unique(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image"),
+  name: text('name'),
+  email: text('email').unique(),
+  emailVerified: timestamp('emailVerified', { mode: 'date' }),
+  image: text('image'),
 });
 
 export const accounts = schema.table(
-  "account",
+  'account',
   {
-    userId: text("userId")
+    userId: text('userId')
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccountType>().notNull(),
-    provider: text("provider").notNull(),
-    providerAccountId: text("providerAccountId").notNull(),
-    refresh_token: text("refresh_token"),
-    access_token: text("access_token"),
-    expires_at: integer("expires_at"),
-    token_type: text("token_type"),
-    scope: text("scope"),
-    id_token: text("id_token"),
-    session_state: text("session_state"),
+      .references(() => users.id, { onDelete: 'cascade' }),
+    type: text('type').$type<AdapterAccountType>().notNull(),
+    provider: text('provider').notNull(),
+    providerAccountId: text('providerAccountId').notNull(),
+    refresh_token: text('refresh_token'),
+    access_token: text('access_token'),
+    expires_at: integer('expires_at'),
+    token_type: text('token_type'),
+    scope: text('scope'),
+    id_token: text('id_token'),
+    session_state: text('session_state'),
   },
   (account) => [
     {
@@ -55,20 +48,20 @@ export const accounts = schema.table(
   ]
 );
 
-export const sessions = schema.table("session", {
-  sessionToken: text("sessionToken").primaryKey(),
-  userId: text("userId")
+export const sessions = schema.table('session', {
+  sessionToken: text('sessionToken').primaryKey(),
+  userId: text('userId')
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  expires: timestamp("expires", { mode: "date" }).notNull(),
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expires: timestamp('expires', { mode: 'date' }).notNull(),
 });
 
 export const verificationTokens = schema.table(
-  "verificationToken",
+  'verificationToken',
   {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
+    identifier: text('identifier').notNull(),
+    token: text('token').notNull(),
+    expires: timestamp('expires', { mode: 'date' }).notNull(),
   },
   (verificationToken) => [
     {
@@ -80,18 +73,18 @@ export const verificationTokens = schema.table(
 );
 
 export const authenticators = schema.table(
-  "authenticator",
+  'authenticator',
   {
-    credentialID: text("credentialID").notNull().unique(),
-    userId: text("userId")
+    credentialID: text('credentialID').notNull().unique(),
+    userId: text('userId')
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    providerAccountId: text("providerAccountId").notNull(),
-    credentialPublicKey: text("credentialPublicKey").notNull(),
-    counter: integer("counter").notNull(),
-    credentialDeviceType: text("credentialDeviceType").notNull(),
-    credentialBackedUp: boolean("credentialBackedUp").notNull(),
-    transports: text("transports"),
+      .references(() => users.id, { onDelete: 'cascade' }),
+    providerAccountId: text('providerAccountId').notNull(),
+    credentialPublicKey: text('credentialPublicKey').notNull(),
+    counter: integer('counter').notNull(),
+    credentialDeviceType: text('credentialDeviceType').notNull(),
+    credentialBackedUp: boolean('credentialBackedUp').notNull(),
+    transports: text('transports'),
   },
   (authenticator) => [
     {

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { SessionProvider as SessionProviderBase } from "next-auth/react";
+import { ThemeProvider } from '@/components/theme-provider';
+import { SessionProvider as SessionProviderBase } from 'next-auth/react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

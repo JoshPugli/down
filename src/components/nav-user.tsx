@@ -1,19 +1,10 @@
-"use client"
+'use client';
 
-import {
-  IconDotsVertical,
-  IconLogout,
-  IconSettings,
-  IconUserPlus
-} from "@tabler/icons-react"
-import { signOut, useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { IconDotsVertical, IconLogout, IconSettings } from '@tabler/icons-react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,21 +13,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar';
 
 export function NavUser() {
-  const { data: session, status } = useSession()
-  const { isMobile } = useSidebar()
-  const router = useRouter()
+  const { data: session, status } = useSession();
+  const { isMobile } = useSidebar();
+  const router = useRouter();
 
   // Handle loading state
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
@@ -49,7 +40,7 @@ export function NavUser() {
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-    )
+    );
   }
 
   // Handle unauthenticated state
@@ -57,46 +48,41 @@ export function NavUser() {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton 
-            size="lg" 
-            onClick={() => router.push('/login')}
-          >
+          <SidebarMenuButton size="lg" onClick={() => router.push('/login')}>
             <Avatar className="h-8 w-8 rounded-lg">
               <AvatarFallback className="rounded-lg">?</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">Sign in</span>
-              <span className="text-muted-foreground truncate text-xs">
-                Not logged in
-              </span>
+              <span className="text-muted-foreground truncate text-xs">Not logged in</span>
             </div>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-    )
+    );
   }
 
   // Get user info from session
   const user = {
-    name: session.user.name || "User",
-    email: session.user.email || "",
-    image: session.user.image || "",
-  }
-  
+    name: session.user.name || 'User',
+    email: session.user.email || '',
+    image: session.user.image || '',
+  };
+
   // Function to get initials for avatar fallback
   const getInitials = (name: string) => {
     return name
-      .split(" ")
-      .map(part => part[0])
-      .join("")
+      .split(' ')
+      .map((part) => part[0])
+      .join('')
       .toUpperCase()
-      .substring(0, 2)
-  }
+      .substring(0, 2);
+  };
 
   const handleSignOut = async () => {
-    await signOut({ redirect: false })
-    router.push('/login')
-  }
+    await signOut({ redirect: false });
+    router.push('/login');
+  };
 
   return (
     <SidebarMenu>
@@ -113,16 +99,14 @@ export function NavUser() {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
-                </span>
+                <span className="text-muted-foreground truncate text-xs">{user.email}</span>
               </div>
               <IconDotsVertical className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             align="end"
             sideOffset={4}
           >
@@ -134,9 +118,7 @@ export function NavUser() {
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
-                  </span>
+                  <span className="text-muted-foreground truncate text-xs">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -160,5 +142,5 @@ export function NavUser() {
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }

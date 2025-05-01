@@ -82,12 +82,8 @@
           "tableFrom": "account",
           "tableTo": "user",
           "schemaTo": "users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -158,12 +154,8 @@
           "tableFrom": "authenticator",
           "tableTo": "user",
           "schemaTo": "users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -173,9 +165,7 @@
         "authenticator_credentialID_unique": {
           "name": "authenticator_credentialID_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "credentialID"
-          ]
+          "columns": ["credentialID"]
         }
       },
       "policies": {},
@@ -212,12 +202,8 @@
           "tableFrom": "session",
           "tableTo": "user",
           "schemaTo": "users",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -270,9 +256,7 @@
         "user_email_unique": {
           "name": "user_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},

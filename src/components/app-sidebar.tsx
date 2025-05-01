@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import {
   IconCamera,
@@ -7,127 +7,120 @@ import {
   IconFileAi,
   IconFileDescription,
   IconUsers,
-  IconUserPlus  ,
+  IconUserPlus,
   IconMail,
   IconSettings,
-  IconConfetti
-} from "@tabler/icons-react"
-import * as React from "react"
+  IconConfetti,
+} from '@tabler/icons-react';
+import * as React from 'react';
 
-import { GroupSwitcher } from "@/components/group-switcher"
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
-import { NavSecondary } from "@/components/nav-secondary"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader
-} from "@/components/ui/sidebar"
+import { GroupSwitcher } from '@/components/group-switcher';
+import { NavMain } from '@/components/nav-main';
+import { NavUser } from '@/components/nav-user';
+import { NavSecondary } from '@/components/nav-secondary';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
 
 const data = {
   groups: [
     {
-      name: "The Lads",
+      name: 'The Lads',
       logo: IconCamera,
     },
     {
-      name: "Placeholder 1",
+      name: 'Placeholder 1',
       logo: IconFileAi,
     },
     {
-      name: "Evil Corp.",
+      name: 'Evil Corp.',
       logo: IconCommand,
     },
   ],
   navMain: [
     {
-      title: "Hangouts",
-      url: "#",
+      title: 'Hangouts',
+      url: '#',
       icon: IconConfetti,
     },
 
     {
-      title: "Calendar",
-      url: "#",
+      title: 'Calendar',
+      url: '#',
       icon: IconCalendar,
     },
-    
   ],
   navSecondary: [
     {
-      title: "Settings",
-      url: "#",
+      title: 'Settings',
+      url: '#',
       icon: IconSettings,
     },
     {
-      title: "Inbox",
-      url: "#",
+      title: 'Inbox',
+      url: '#',
       icon: IconMail,
     },
   ],
   navGroup: [
     {
-      title: "Members",
-      url: "#",
+      title: 'Members',
+      url: '#',
       icon: IconUsers,
     },
     {
-      title: "Invite members",
-      url: "#",
+      title: 'Invite members',
+      url: '#',
       icon: IconUserPlus,
-    }
+    },
   ],
   navClouds: [
     {
-      title: "Capture",
+      title: 'Capture',
       icon: IconCamera,
       isActive: true,
-      url: "#",
+      url: '#',
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: 'Active Proposals',
+          url: '#',
         },
         {
-          title: "Archived",
-          url: "#",
+          title: 'Archived',
+          url: '#',
         },
       ],
     },
     {
-      title: "Proposal",
+      title: 'Proposal',
       icon: IconFileDescription,
-      url: "#",
+      url: '#',
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: 'Active Proposals',
+          url: '#',
         },
         {
-          title: "Archived",
-          url: "#",
+          title: 'Archived',
+          url: '#',
         },
       ],
     },
     {
-      title: "Prompts",
+      title: 'Prompts',
       icon: IconFileAi,
-      url: "#",
+      url: '#',
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: 'Active Proposals',
+          url: '#',
         },
         {
-          title: "Archived",
-          url: "#",
+          title: 'Archived',
+          url: '#',
         },
       ],
     },
   ],
-
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -136,7 +129,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <GroupSwitcher teams={data.groups} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain}/>
+        <NavMain items={data.navMain} />
         <NavMain items={data.navGroup} label="Group" />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
@@ -144,5 +137,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
