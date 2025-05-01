@@ -1,31 +1,35 @@
+/*
+Got scaffold from https://authjs.dev/getting-started/adapters/drizzle
+*/
 import {
-  boolean,
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
-  integer,
+    boolean,
+    integer,
+    pgSchema,
+    primaryKey,
+    text,
+    timestamp
 } from "drizzle-orm/pg-core";
-import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
 import type { AdapterAccountType } from "next-auth/adapters";
+import postgres from "postgres";
+import {uuidPrimaryKey} from "../common/columns";
 
-const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle";
-const pool = postgres(connectionString, { max: 1 });
+// const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle";
+const pool = postgres(process.env.DATABASE_URL as string, { max: 1 });
+
+const schema = pgSchema("users");
 
 export const db = drizzle(pool);
 
-export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+export const users = schema.table("user", {
+  id: uuidPrimaryKey(),
   name: text("name"),
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 });
 
-export const accounts = pgTable(
+export const accounts = schema.table(
   "account",
   {
     userId: text("userId")
@@ -51,7 +55,7 @@ export const accounts = pgTable(
   ]
 );
 
-export const sessions = pgTable("session", {
+export const sessions = schema.table("session", {
   sessionToken: text("sessionToken").primaryKey(),
   userId: text("userId")
     .notNull()
@@ -59,7 +63,7 @@ export const sessions = pgTable("session", {
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
-export const verificationTokens = pgTable(
+export const verificationTokens = schema.table(
   "verificationToken",
   {
     identifier: text("identifier").notNull(),
@@ -75,7 +79,7 @@ export const verificationTokens = pgTable(
   ]
 );
 
-export const authenticators = pgTable(
+export const authenticators = schema.table(
   "authenticator",
   {
     credentialID: text("credentialID").notNull().unique(),
