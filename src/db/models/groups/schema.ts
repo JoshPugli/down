@@ -5,13 +5,11 @@ Group table
 - Icon
 - Optional Description
 */
-import { pgSchema, text } from 'drizzle-orm/pg-core';
+import { pgTable, text } from 'drizzle-orm/pg-core';
 import { timestamps } from '../common/mixins';
 import { uuidPrimaryKey } from '../common/columns';
 
-const schema = pgSchema('groups');
-
-export const groups = schema.table('group', {
+export const groups = pgTable('group', {
   id: uuidPrimaryKey(),
   name: text('name').notNull(),
   icon: text('icon').notNull(),

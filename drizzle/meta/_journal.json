@@ -5,43 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1745875124809,
-      "tag": "0000_bitter_daimon_hellstrom",
+      "when": 1746140141938,
+      "tag": "0000_lovely_rocket_raccoon",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1745879616521,
-      "tag": "0001_natural_the_enforcers",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1745895713131,
-      "tag": "0002_thankful_post",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1745948220701,
-      "tag": "0003_dear_tenebrous",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1745951610785,
-      "tag": "0004_cold_lila_cheney",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1746058959315,
-      "tag": "0005_smooth_owl",
+      "when": 1746140621597,
+      "tag": "0001_magenta_hercules",
       "breakpoints": true
     }
   ]

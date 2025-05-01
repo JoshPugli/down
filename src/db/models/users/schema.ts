@@ -1,7 +1,7 @@
 /*
 Got scaffold from https://authjs.dev/getting-started/adapters/drizzle
 */
-import { boolean, integer, pgSchema, primaryKey, text, timestamp } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import type { AdapterAccountType } from 'next-auth/adapters';
 import postgres from 'postgres';
@@ -10,11 +10,9 @@ import { uuidPrimaryKey } from '../common/columns';
 // const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle";
 const pool = postgres(process.env.DATABASE_URL as string, { max: 1 });
 
-const schema = pgSchema('users');
-
 export const db = drizzle(pool);
 
-export const users = schema.table('user', {
+export const users = pgTable('user', {
   id: uuidPrimaryKey(),
   name: text('name'),
   email: text('email').unique(),
@@ -22,7 +20,7 @@ export const users = schema.table('user', {
   image: text('image'),
 });
 
-export const accounts = schema.table(
+export const accounts = pgTable(
   'account',
   {
     userId: text('userId')
@@ -48,7 +46,7 @@ export const accounts = schema.table(
   ]
 );
 
-export const sessions = schema.table('session', {
+export const sessions = pgTable('session', {
   sessionToken: text('sessionToken').primaryKey(),
   userId: text('userId')
     .notNull()
@@ -56,7 +54,7 @@ export const sessions = schema.table('session', {
   expires: timestamp('expires', { mode: 'date' }).notNull(),
 });
 
-export const verificationTokens = schema.table(
+export const verificationTokens = pgTable(
   'verificationToken',
   {
     identifier: text('identifier').notNull(),
@@ -72,7 +70,7 @@ export const verificationTokens = schema.table(
   ]
 );
 
-export const authenticators = schema.table(
+export const authenticators = pgTable(
   'authenticator',
   {
     credentialID: text('credentialID').notNull().unique(),
