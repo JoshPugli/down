@@ -15,6 +15,13 @@
       "when": 1746140621597,
       "tag": "0001_magenta_hercules",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1746480996000,
+      "tag": "0002_chubby_expediter",
+      "breakpoints": true
     }
   ]
 }

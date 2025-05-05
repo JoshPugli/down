@@ -1,13 +1,28 @@
-import { pgTable, primaryKey } from 'drizzle-orm/pg-core';
+import { pgTable, primaryKey, text } from 'drizzle-orm/pg-core';
 import { users } from '../users/schema';
 import { groups } from '../groups/schema';
-import { uuidForeignKey } from '../common/columns';
+import { relations } from 'drizzle-orm';
 
 export const usersToGroups = pgTable(
   'users_to_groups',
   {
-    userId: uuidForeignKey('user_id', () => users),
-    groupId: uuidForeignKey('group_id', () => groups),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id),
+    groupId: text('group_id')
+      .notNull()
+      .references(() => groups.id),
   },
-  (table) => [primaryKey({ columns: [table.userId, table.groupId] })]
+  (t) => [primaryKey({ columns: [t.userId, t.groupId] })]
 );
+
+export const usersToGroupsRelations = relations(usersToGroups, ({ one }) => ({
+  group: one(groups, {
+    fields: [usersToGroups.groupId],
+    references: [groups.id],
+  }),
+  user: one(users, {
+    fields: [usersToGroups.userId],
+    references: [users.id],
+  }),
+}));

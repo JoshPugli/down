@@ -11,12 +11,3 @@ export const uuidPrimaryKey = (name: string = 'id') =>
   text(name)
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID() as UUID);
-
-export const uuidForeignKey = (
-  name: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  reference: () => { id: any } // TODO Type check better
-) =>
-  text(name)
-    .notNull()
-    .references(() => reference().id);
