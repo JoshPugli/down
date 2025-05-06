@@ -1,141 +1,128 @@
 'use client';
 
-import {
-  IconCamera,
-  IconCommand,
-  IconCalendar,
-  IconFileAi,
-  IconFileDescription,
-  IconUsers,
-  IconUserPlus,
-  IconMail,
-  IconSettings,
-  IconConfetti,
-} from '@tabler/icons-react';
+import { Calendar, Command, InboxIcon, Users2 } from 'lucide-react';
 import * as React from 'react';
 
-import { GroupSwitcher } from '@/components/group-switcher';
-import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { NavSecondary } from '@/components/nav-secondary';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarInput,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  // useSidebar,
+} from '@/components/ui/sidebar';
 
+// This is sample data
 const data = {
-  groups: [
-    {
-      name: 'The Lads',
-      logo: IconCamera,
-    },
-    {
-      name: 'Placeholder 1',
-      logo: IconFileAi,
-    },
-    {
-      name: 'Evil Corp.',
-      logo: IconCommand,
-    },
-  ],
   navMain: [
     {
-      title: 'Hangouts',
+      title: 'Feed',
       url: '#',
-      icon: IconConfetti,
+      icon: InboxIcon,
+      isActive: true,
     },
-
+    {
+      title: 'Groups',
+      url: '#',
+      icon: Users2,
+      isActive: false,
+    },
     {
       title: 'Calendar',
       url: '#',
-      icon: IconCalendar,
-    },
-  ],
-  navSecondary: [
-    {
-      title: 'Settings',
-      url: '#',
-      icon: IconSettings,
-    },
-    {
-      title: 'Inbox',
-      url: '#',
-      icon: IconMail,
-    },
-  ],
-  navGroup: [
-    {
-      title: 'Members',
-      url: '#',
-      icon: IconUsers,
-    },
-    {
-      title: 'Invite members',
-      url: '#',
-      icon: IconUserPlus,
-    },
-  ],
-  navClouds: [
-    {
-      title: 'Capture',
-      icon: IconCamera,
-      isActive: true,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Proposal',
-      icon: IconFileDescription,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Prompts',
-      icon: IconFileAi,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
+      icon: Calendar,
+      isActive: false,
     },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  // Note: I'm using state to show active item.
+  // IRL you should use the url/router.
+  const [activeItem] = React.useState(data.navMain[0]);
+  // const [mails, setMails] = React.useState(data.mails)
+  // const { setOpen } = useSidebar()
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
-        <GroupSwitcher teams={data.groups} />
-      </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavMain items={data.navGroup} label="Group" />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
-      </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
+    <Sidebar
+      collapsible="icon"
+      className="overflow-hidden *:data-[sidebar=sidebar]:flex-row"
+      {...props}
+    >
+      {/* This is the first sidebar */}
+      {/* We disable collapsible and adjust width to icon. */}
+      {/* This will make the sidebar appear as icons. */}
+      <Sidebar collapsible="none" className="w-[calc(var(--sidebar-width-icon)+1px)]! border-r">
+        <SidebarHeader>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton size="lg" asChild className="md:h-8 md:p-0">
+                <a href="#">
+                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                    <Command className="size-4" />
+                  </div>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium">Acme Inc</span>
+                    <span className="truncate text-xs">Enterprise</span>
+                  </div>
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent className="px-1.5 md:px-0">
+              <SidebarMenu>
+                {data.navMain.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      tooltip={{
+                        children: item.title,
+                        hidden: false,
+                      }}
+                      isActive={activeItem?.title === item.title}
+                      className="px-2.5 md:px-2"
+                    >
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter>
+          <NavUser />
+        </SidebarFooter>
+      </Sidebar>
+
+      {/* This is the second sidebar */}
+      {/* We disable collapsible and let it fill remaining space */}
+      <Sidebar collapsible="none" className="hidden flex-1 md:flex">
+        <SidebarHeader className="gap-3.5 border-b p-4">
+          <div className="flex w-full items-center justify-between">
+            <div className="text-foreground text-base font-medium">{activeItem?.title}</div>
+            {/* <Label className="flex items-center gap-2 text-sm">
+              <span>Unreads</span>
+              <Switch className="shadow-none" />
+            </Label> */}
+          </div>
+          <SidebarInput placeholder="Type to search..." />
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup className="px-0">
+            <SidebarGroupContent>Hi</SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
     </Sidebar>
   );
 }

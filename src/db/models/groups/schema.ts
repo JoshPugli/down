@@ -12,7 +12,9 @@ import { uuidPrimaryKey } from '../common/columns';
 export const groups = pgTable('group', {
   id: uuidPrimaryKey(),
   name: text('name').notNull(),
-  icon: text('icon').notNull(),
+  iconEmoji: text('icon_emoji'),
+  iconColor: text('icon_color'),
+  iconUrl: text('icon_url'), // For future custom uploads
   description: text('description'),
   ...timestamps,
 });

@@ -1,8 +1,6 @@
 'use client';
 
-import { IconDotsVertical, IconLogout, IconSettings } from '@tabler/icons-react';
-import { signOut, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { BadgeCheck, ChevronsUpDown, LogOut, Settings } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -20,10 +18,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export function NavUser() {
-  const { data: session, status } = useSession();
   const { isMobile } = useSidebar();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   // Handle loading state
@@ -91,7 +91,7 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground md:h-8 md:p-0"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.image} alt={user.name} />
@@ -99,9 +99,9 @@ export function NavUser() {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+                <span className="truncate text-xs">{user.email}</span>
               </div>
-              <IconDotsVertical className="ml-auto size-4" />
+              <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -118,24 +118,24 @@ export function NavUser() {
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+                  <span className="truncate text-xs">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => router.push('/account')}>
-                <IconSettings className="mr-2 h-4 w-4" />
-                Settings
+              <DropdownMenuItem>
+                <BadgeCheck />
+                Account
               </DropdownMenuItem>
-              {/* <DropdownMenuItem onClick={() => router.push('/notifications')}>
-                <IconUserPlus className="mr-2 h-4 w-4" />
-                Invite Members  
-              </DropdownMenuItem> */}
+              <DropdownMenuItem>
+                <Settings />
+                Settngs
+              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
-              <IconLogout className="mr-2 h-4 w-4" />
+              <LogOut />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
