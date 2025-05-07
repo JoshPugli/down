@@ -10,35 +10,51 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Calendar, Command, InboxIcon, Users2 } from 'lucide-react';
+import { Calendar, Command, InboxIcon, LucideProps, Users2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
-
+import Link from 'next/link';
 import { NavUser } from '@/components/nav-user';
-const data = {
-  navMain: [
-    {
-      title: 'Feed',
-      url: '#',
-      icon: InboxIcon,
-      isActive: true,
-    },
-    {
-      title: 'Groups',
-      url: '#',
-      icon: Users2,
-      isActive: false,
-    },
-    {
-      title: 'Calendar',
-      url: '#',
-      icon: Calendar,
-      isActive: false,
-    },
-  ],
+
+type NavDataItem = {
+  title: string;
+  url: string;
+  icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+  >;
+  isActive: boolean;
 };
 
+const data: NavDataItem[] = [
+  {
+    title: 'Feed',
+    url: '/feed',
+    icon: InboxIcon,
+    isActive: true,
+  },
+  {
+    title: 'Groups',
+    url: '/groups',
+    icon: Users2,
+    isActive: false,
+  },
+  {
+    title: 'Calendar',
+    url: '/calendar',
+    icon: Calendar,
+    isActive: false,
+  },
+];
+
 function PrimarySidebar() {
-  const [activeItem] = React.useState(data.navMain[0]);
+  const router = useRouter();
+  const [activeItem, setActiveItem] = React.useState(data[0]);
+
+  // Handle click on menu item
+  const handleNavigation = (item: NavDataItem) => {
+    setActiveItem(item);
+    router.push(item.url);
+  };
 
   return (
     <Sidebar collapsible="none" className="w-[calc(var(--sidebar-width-icon)+1px)]! border-r">
@@ -46,7 +62,7 @@ function PrimarySidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild className="md:h-8 md:p-0">
-              <a href="#">
+              <Link href="/">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Command className="size-4" />
                 </div>
@@ -54,7 +70,7 @@ function PrimarySidebar() {
                   <span className="truncate font-medium">Acme Inc</span>
                   <span className="truncate text-xs">Enterprise</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -63,7 +79,7 @@ function PrimarySidebar() {
         <SidebarGroup>
           <SidebarGroupContent className="px-1.5 md:px-0">
             <SidebarMenu>
-              {data.navMain.map((item) => (
+              {data.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     tooltip={{
@@ -72,6 +88,7 @@ function PrimarySidebar() {
                     }}
                     isActive={activeItem?.title === item.title}
                     className="px-2.5 md:px-2"
+                    onClick={() => handleNavigation(item)}
                   >
                     <item.icon />
                     <span>{item.title}</span>
