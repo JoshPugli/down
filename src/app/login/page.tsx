@@ -17,7 +17,7 @@ export default function SignInPage() {
           <Button
             variant="outline"
             className="w-full justify-center gap-2 py-6 text-base"
-            onClick={() => signIn('google', { redirectTo: '/dashboard' })}
+            onClick={() => signIn('google', { redirectTo: '/feed' })}
           >
             <FcGoogle className="h-5 w-5" />
             <span>Sign in with Google</span>
